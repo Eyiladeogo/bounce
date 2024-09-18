@@ -4,6 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import UserSerializer, RegistrationSerializer
 from .models import CustomUser
@@ -31,6 +32,8 @@ class LoginView(APIView):
         return Response({'error':'Invalid Credentials'} ,status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         request.user.auth_token.delete()
         return Response({'message': 'Logged out'}, status=status.HTTP_200_OK)
