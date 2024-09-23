@@ -8,14 +8,14 @@ class CustomUserAdmin(BaseUserAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_active', 'last_login', 'date_joined')
     search_fields = ('email', 'first_name', 'last_name')
     ordering = ('email',)
-    list_filter = ('is_staff', 'is_active')
+    list_filter = ('is_staff', 'is_active', 'last_login')
     filter_horizontal = ()
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        # (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
 
     add_fieldsets = (
