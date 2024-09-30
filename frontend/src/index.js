@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
+import Saved from './components/Saved';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -10,10 +11,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
   },
-  // {
-  //   path: "/login",
-  //   element: <SignIn />,
-  // },
+  {
+    path: "/saved",
+    element: <Saved />,
+  },
   // {
   //   path: "/register",
   //   element: <Register />,

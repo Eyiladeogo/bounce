@@ -46,3 +46,42 @@
 /* Navbar Styles */
 
 
+/* Saved Items */
+.saved-container {
+  margin: 20px;
+}
+
+.saved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.saved-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.saved-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.saved-item-details {
+  flex-grow: 1;
+}
+
+.saved-item-price {
+  font-weight: bold;
+}
+
+.remove-saved-item {
+  background-color: red;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+
