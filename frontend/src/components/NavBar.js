@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'; // Assuming you are using react-router 
 import { FaShoppingCart, FaHeart, FaUser, FaSearch } from 'react-icons/fa'; // You can replace these with your icons
 
 const Navbar = () => {
+
+  
   return (
     // <nav className="navbar">
     //   <div className="navbar-left">
@@ -38,7 +40,7 @@ const Navbar = () => {
         <Link to='/saved'>
             <FaHeart className="text-black cursor-pointer" title="Saved Items" />
         </Link>
-        <Link>
+        <Link to='/cart'>
             <FaShoppingCart className="text-black cursor-pointer" title="Cart" />
         </Link>
         

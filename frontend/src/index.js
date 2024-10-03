@@ -4,6 +4,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Saved from './components/Saved';
+import Cart from './components/Cart';
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -15,10 +16,10 @@ const router = createBrowserRouter([
     path: "/saved",
     element: <Saved />,
   },
-  // {
-  //   path: "/register",
-  //   element: <Register />,
-  // },
+  {
+    path: "/cart",
+    element: <Cart />,
+  },
   // {
   //   path: "/profile",
   //   element: <Profile />,

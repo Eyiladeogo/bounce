@@ -1,4 +1,5 @@
 import SavedItem from "./SavedItem";
+import Navbar from "./NavBar";
 
 const savedItems = [
   {
@@ -25,15 +26,19 @@ const savedItems = [
 
 export default function Saved() {
   return (
-    <div className="saved-container">
-      <h2>Your Saved Items</h2>
-      <div className="saved-list">
-        {savedItems.length > 0 ? (
-          savedItems.map((item) => <SavedItem key={item.id} item={item} />)
-        ) : (
-          <p>No items saved yet!</p>
-        )}
-      </div>
-    </div>
+    <>
+        <Navbar />
+        <div className="saved-container">
+            <h2>Your Saved Items</h2>
+            <div className="saved-list">
+                {savedItems.length > 0 ? (
+                savedItems.map((item) => <SavedItem key={item.id} item={item} />)
+                ) : (
+                <p>No items saved yet!</p>
+                )}
+            </div>
+        </div>
+    </>
+    
   );
 }
