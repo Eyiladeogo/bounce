@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import Saved from './components/Saved';
 import Cart from './components/Cart';
+import SignInModal from './components/SignInModal';
+
 import reportWebVitals from './reportWebVitals';
 
 const router = createBrowserRouter([
@@ -20,10 +22,10 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
-  // {
-  //   path: "/profile",
-  //   element: <Profile />,
-  // },
+  {
+    path: "/sign-in",
+    element: <SignInModal />,
+  },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

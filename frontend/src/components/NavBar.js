@@ -16,10 +16,10 @@ const Navbar = () => {
     //     <Link to="/shop" className="shop-link">Shop</Link>
     //   </div>
 
-    <nav className="flex justify-between items-center bg-white px-6 py-4 shadow-md">
+    <nav className="flex justify-between items-center bg-white px-12 py-4 shadow-md">
         <div className="flex items-center">
             {/* Logo and Shop Link */}
-            <Link to="/" className="mr-4">
+            <Link to="/" className="mr-8">
             <img src={bounceLogo} alt="Logo" className="h-10" />
             </Link>
             <Link to="/shop" className="text-black montserrat font-bold text-lg">SHOP</Link>

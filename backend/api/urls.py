@@ -12,5 +12,5 @@ router.register(r'shop', ShopViewSet, basename='shop')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('check-email/', check_email)
+    path('check-email', check_email)
 ]
