@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'saved_items',
     'cart',
     'corsheaders',
-    'psycopg2'
+    'psycopg2',
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -106,7 +108,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),  
+        'HOST': 'localhost',  
         'PORT': os.getenv('DB_PORT'),
     }
 }
@@ -163,3 +165,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React app URL for local development
     # Add other allowed origins here
 ]
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dpfgyed4e',
+    'API_KEY': os.getenv('CLOUDINARY_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_SECRET')
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'

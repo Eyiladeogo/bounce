@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store.js'
 import App from './App';
 import Saved from './components/Saved';
 import Cart from './components/Cart';
-import SignInModal from './components/SignInModal';
+import Shop from './components/Shop';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -22,16 +24,22 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
+  // {
+  //   path: "/sign-in",
+  //   element: <SignInModal />,
+  // },
   {
-    path: "/sign-in",
-    element: <SignInModal />,
+    path: "/shop",
+    element: <Shop />,
   },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}> 
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

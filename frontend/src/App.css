@@ -5,6 +5,9 @@
 .shoe-wrapper{
   display: flex;
   justify-content: space-around;
+  opacity: 0;
+  animation: bounceIn 1.5s ease-out forwards;
+  animation-delay: 0.5s;
 }
 
 .logo-wrapper{
@@ -16,6 +19,23 @@
 
 .shoe {
   height: 20vmin;
+  animation: scaleUp 2s ease-in-out infinite;
+}
+
+@keyframes scaleUp {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05); /* Slight scaling in the middle of the animation */
+  }
+}
+
+/* Navbar fade-in */
+nav {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 0.5s; /* Smooth delay to start after page load */
 }
 
 .App-header {
@@ -36,15 +56,65 @@
 .name{
   font-size: 3em;
   padding: 0;
+  opacity: 0;
+  margin-top: 20px;
+  animation: slideUpFadeIn 1.5s ease-out forwards;
+  animation-delay: 1s; /* Delayed to sync after logo */
 }
 
 .slogan{
   font-size: 1.5em;
+  opacity: 0;
+  margin-top: 10px;
+  animation: slideUpFadeIn 1.5s ease-out forwards;
+  animation-delay: 1.2s;
+}
+
+/* Slide-up and fade-in animation */
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start below the initial position */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Move to original position */
+  }
+}
+
+/* Bounce in animation for logo */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px); /* Start above the position */
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(10px); /* Slight downward bounce */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Settle in original position */
+  }
+}
+
+/* Fade-in effect for NavBar */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 
 /* Navbar Styles */
-
+.icons .cursor-pointer:hover {
+    color: #333; /* Change color on hover */
+    transform: scale(1.25); /* Slightly enlarge the icon on hover */
+    transition: all 0.3s ease; /* Smooth transition */
+}
 
 /* Saved Items */
 .saved-container {
@@ -94,7 +164,7 @@
   cursor: pointer;
 }
 
-/* Cart */
+/* CART STYLING */
 .cart-item-quantity{
   display: flex;
   max-width: 10%;
@@ -114,13 +184,13 @@
   background-color: #d4d7dd;
 }
 
-/* Modal overlay (semi-transparent background) */
+/* MODAL STYLING */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5); /* Dark translucent overlay */
   display: flex;
   justify-content: center;
@@ -137,8 +207,45 @@
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem; /* Padding around the container */
+  z-index: 5000;
+  position: relative;
 }
 
+.close-button{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: black;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.close-button:hover{
+  background: none;
+}
+
+.submit-button{
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* width: 50%; */
+}
+
+.submit-button:hover{
+  background-color: #333;
+}
+
+.help-text {
+  font-size: 12px; /* Smaller font size for help text */
+  color: #666; /* Lighter color for contrast */
+  margin-top: 5px; /* Space between input and help text */
+}
 /* Modal content */
 /* .modal > div {
   background-color: white;
@@ -205,4 +312,48 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+
+/* CSS for the Shop Component */
+
+.item-grid {
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); 3 items per row */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive 3-column grid */
+  gap: 20px; /* Space between items */
+  padding: 20px;
+}
+
+.item-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.item-card:hover {
+  transform: scale(1.05); /* Hover effect */
+}
+
+.item-card img {
+  max-width: 100%;
+  height: 69%;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.item-card h2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.item-card p {
+  font-size: 16px;
+  color: #333;
 }

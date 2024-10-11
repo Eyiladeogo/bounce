@@ -1,11 +1,17 @@
 import React from 'react';
 import bounceLogo from '../assets/icon.svg'
+import SignIn from './SignIn';
 import { Link } from 'react-router-dom'; // Assuming you are using react-router for navigation
 import { FaShoppingCart, FaHeart, FaUser, FaSearch } from 'react-icons/fa'; // You can replace these with your icons
+import { useSelector, useDispatch } from 'react-redux';
+import { login,logout } from '../features/authSlice';
 
 const Navbar = () => {
 
   
+  const { isAuthenticated, user } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
   return (
     // <nav className="navbar">
     //   <div className="navbar-left">
@@ -35,7 +41,7 @@ const Navbar = () => {
             <FaSearch className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500' />
         </div>
 
-      <div className="flex gap-4 text-2*1">
+      <div className="flex gap-4 text-2*1 icons">
         {/* Icons */}
         <Link to='/saved'>
             <FaHeart className="text-black cursor-pointer" title="Saved Items" />
@@ -43,8 +49,18 @@ const Navbar = () => {
         <Link to='/cart'>
             <FaShoppingCart className="text-black cursor-pointer" title="Cart" />
         </Link>
+        {
+          isAuthenticated ? 
+          (
+            <FaUser className="text-black cursor-pointer" title="User Profile" />
+          ) : (
+            <SignIn/>
+          )
+          
+          
+        }
+        {/* <button className="text-black cursor-pointer" title="Sign In" >Sign In</button> */}
         
-        <FaUser className="text-black cursor-pointer" title="User Profile" />
       </div>
     </nav>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import dawg from '../assets/who-are-you-dawg.svg';
 import api from "../utils/api";
 
-export default function SignInModal(){
+export default function SignInModal({ onClose }){
     const [email, setEmail] = useState('')
     const [userExists, setUserExists] = useState(null)
     const [password, setPassword] = useState('')
@@ -78,6 +78,7 @@ export default function SignInModal(){
                 <img src={dawg} alt="Who are you dawg?" className="who-you"></img>
             </div> */}
             <div className="modal-container">
+                <button className="close-button" onClick={onClose}>X</button>
                 <img src={dawg} alt="Who are you dawg?" className="who-you"></img>
                 <form onSubmit={handleSubmit}>
                     <h2>{userExists === null ? 'Sign In' : userExists ? 'Login' : 'Register'}</h2>
@@ -93,8 +94,12 @@ export default function SignInModal(){
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
+                                placeholder="Enter your email"
                             />
-                            <button type="submit">Next</button>
+                            <p className="help-text">
+                                We'll check if you already have an account with this email
+                            </p>
+                            <button type="submit" className="submit-button">Next</button>
                         </div>
                     )}
                     
@@ -108,7 +113,11 @@ export default function SignInModal(){
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                placeholder="Enter your password"
                             />
+                            <p className="help-text">
+                                Please enter your password to log in.
+                            </p>
                             <button type="submit">Login</button>
                         </div>
                     )}
@@ -123,6 +132,7 @@ export default function SignInModal(){
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                             required
+                            placeholder="Enter your first name"
                         />
                         </div>
                         <div className="form-group">
@@ -133,6 +143,7 @@ export default function SignInModal(){
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                             required
+                            placeholder="Enter your last name"
                         />
                         </div>
                         <div className="form-group">
@@ -143,7 +154,11 @@ export default function SignInModal(){
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
+                            placeholder="Create a password"
                         />
+                            <p className="help-text">
+                                Choose a strong password for your account.
+                            </p>
                         </div>
                         <div className="form-group">
                         <label htmlFor="confirmPassword">Confirm Password</label>
@@ -153,7 +168,11 @@ export default function SignInModal(){
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
+                            placeholder="Confirm your password"
                         />
+                            <p className="help-text">
+                                Please re-enter your password to confirm.
+                            </p>
                         </div>
                         <button type="submit">Register</button>
                     </>
