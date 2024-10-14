@@ -1,38 +1,44 @@
 import SavedItem from "./SavedItem";
 import Navbar from "./NavBar";
+import { useState } from "react";
 
-const savedItems = [
-  {
-    id: 1,
-    name: 'Tatum 2 "Red Cement"',
-    price: 87.97,
-  },
-  {
-    id: 2,
-    name: 'Tatum 2 "Red Cement"',
-    price: 87.97,
-  },
-  {
-    id: 3,
-    name: 'Tatum 2 "Red Cement"',
-    price: 87.97,
-  },
-  {
-    id: 4,
-    name: 'Tatum 2 "Red Cement"',
-    price: 87.97,
-  },
-];
+import api from "../utils/api";
+import { useEffect } from "react";
 
 export default function Saved() {
+
+  const [savedItems, setSavedItems] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() =>{
+    async function fetchSavedItems(){
+      try{
+          const response = await api.get('saved/')
+          console.log(response.data)
+          setSavedItems(response.data)
+          setLoading(false)
+      }
+      catch(error){
+          setError(error.message)
+          setLoading(false)
+      }
+    }
+
+    fetchSavedItems()
+  }, [])
   return (
     <>
         <Navbar />
         <div className="saved-container">
+        {loading && <p>Loading...</p>}
+        {error && <p>Error fetching data: {error}</p>}
+
+
             <h2>Your Saved Items</h2>
             <div className="saved-list">
                 {savedItems.length > 0 ? (
-                savedItems.map((item) => <SavedItem key={item.id} item={item} />)
+                savedItems.map((savedItem) => <SavedItem key={savedItem.item.id} item={savedItem.item} />)
                 ) : (
                 <p>No items saved yet!</p>
                 )}

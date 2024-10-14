@@ -18,7 +18,6 @@ export default function Shop(){
             try{
                 const response = await api.get('shop/')
                 setItems(response.data)
-                console.log(response.data)
                 setLoading(false)
             }
             catch(error){

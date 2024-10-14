@@ -12,7 +12,7 @@ from .serializers import SavedItemSerializer
 class SavedItemsView(APIView):
     def get(self, request):
         user = request.user
-        saved_items = SavedItem.objects.filter(user=user)
+        saved_items = SavedItem.objects.filter(user=user).select_related('item')
         serializer = SavedItemSerializer(saved_items, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
