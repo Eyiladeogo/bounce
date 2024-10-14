@@ -1,6 +1,9 @@
 import { useState } from "react";
 import dawg from '../assets/who-are-you-dawg.svg';
 import api from "../utils/api";
+import { login } from "../features/authSlice";
+import { useDispatch } from "react-redux";
+
 
 export default function SignInModal({ onClose }){
     const [email, setEmail] = useState('')
@@ -11,7 +14,7 @@ export default function SignInModal({ onClose }){
     const [lastName, setLastName] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-
+    const dispatch = useDispatch()
     // const handleEmailSubmit = async (e) => {
     //     e.preventDefault()
     //     try {
@@ -65,9 +68,27 @@ export default function SignInModal({ onClose }){
         // Handle Login or Register based on userExists
         if (userExists) {
             console.log('Logging in with:', { email, password });
+            try {
+                const response = await api.post('/user/login/', {"email":email, "password":password})
+                const token = response.data['token']
+                localStorage.setItem('token', token);
+                dispatch(login(token))
+            } catch (error) {
+                console.error('Login failed', error)
+                setErrorMessage('Error logging in')
+            }
             // Call login API here...
         } else {
             console.log('Registering with:', { email, password, firstName, lastName });
+            try {
+                const response = await api.post('/user/register/', {"email":email, "password":password, "first_name":firstName, "last_name":lastName, "password2":confirmPassword})
+                const token = response.data['token']
+                localStorage.setItem('token', token);
+            } catch (error) {
+                console.error('Registration failed', error)
+                setErrorMessage('Error during registration')
+                
+            }
             // Call registration API here...
         }
     };

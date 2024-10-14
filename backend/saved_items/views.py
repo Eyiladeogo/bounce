@@ -26,7 +26,9 @@ class SavedItemsView(APIView):
         saved_item, created = SavedItem.objects.get_or_create(user=user, item=item)
         if created:
             return Response({'message': 'Item saved for later!'}, status=status.HTTP_200_OK)
-        return Response({'message': 'Item already saved.'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            saved_item.delete()
+            return Response({'message': 'Item removed from saved items.'}, status=status.HTTP_200_OK)
 
     def delete(self, request):
         item_id = request.data.get('item_id')

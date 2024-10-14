@@ -9,9 +9,10 @@ const api = axios.create({
 
 // Interceptor to add authorization token
 api.interceptors.request.use((config) => {
+  console.log('Request Object:', config)
   const token = localStorage.getItem('token');
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Token ${token}`;
   }
   return config;
 }, (error) => {

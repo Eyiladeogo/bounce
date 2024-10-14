@@ -207,7 +207,7 @@ nav {
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1.5rem; /* Padding around the container */
-  z-index: 5000;
+  z-index: 20000;
   position: relative;
 }
 
@@ -334,6 +334,31 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.icon-button:hover {
+  background: none;
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: black;
+  transition: color 0.3s, transform 0.3s;
+  /* border: black 3px solid; */
+  /* background: none; */
+}
+
+/* On hover, change icon color and slightly enlarge it */
+.icon-button:hover .icon {
+  color: #d41515; /* Red for heart or cart hover */
+  transform: scale(1.1);
 }
 
 .item-card:hover {
