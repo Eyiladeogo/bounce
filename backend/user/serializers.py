@@ -5,6 +5,7 @@ class UserSerializer(serializers.ModelSerializer): # User Login only
     class Meta:
         model = CustomUser
         fields = '__all__'
+        extra_kwargs = {'password': {'write_only': True}}
 
 class RegistrationSerializer(serializers.ModelSerializer): # Registration of users, password 2 involved
     password2 = serializers.CharField(write_only=True)

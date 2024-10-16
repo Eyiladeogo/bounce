@@ -1,16 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import bounceLogo from '../assets/icon.svg'
 import SignIn from './SignIn';
-import { Link } from 'react-router-dom'; // Assuming you are using react-router for navigation
+import { Link, useNavigate } from 'react-router-dom'; // Assuming you are using react-router for navigation
 import { FaShoppingCart, FaHeart, FaUser, FaSearch } from 'react-icons/fa'; // You can replace these with your icons
 import { useSelector, useDispatch } from 'react-redux';
-import { login,logout } from '../features/authSlice';
+// import { login,logout } from '../features/authSlice';
+import { setSearchQuery } from '../features/searchSlice';
 
 const Navbar = () => {
 
   
   const { isAuthenticated, user } = useSelector(state => state.auth)
   const dispatch = useDispatch()
+
+  const [inputValue, setInputValue] = useState('')
+  const navigate = useNavigate()
+  const searchQuery = useSelector(state => state.search.query)
+
+  const handleSearch = () => {
+    if (inputValue.trim()){
+      dispatch(setSearchQuery(inputValue))
+      navigate(`/shop?search?q=${inputValue}`)
+    }
+  }
 
   return (
     // <nav className="navbar">
@@ -36,9 +48,33 @@ const Navbar = () => {
             <input
             type="text"
             placeholder="Search..."
+            // value={searchQuery}
+            onChange={(e) => {
+              const value = e.target.value
+              setInputValue(value)
+              setSearchQuery(value)
+              if (value === ""){
+                dispatch(setSearchQuery(null))
+              }
+            }}
             className="w-full p-2 border border-gray-300 montserrat rounded-full text-center"
+            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
-            <FaSearch className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500' />
+            <FaSearch className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500' onClick={handleSearch}/>
+            {inputValue && (
+              <button onClick={() => {
+                setInputValue('')
+                setSearchQuery(null)
+                dispatch(setSearchQuery(null))
+                navigate('/shop')
+              }}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-black hover:bg-transparent bg-transparent focus:outline-none transition-colors duration-300"
+              >
+                X
+              </button>
+            )
+
+            }
         </div>
 
       <div className="flex gap-4 text-2*1 icons">

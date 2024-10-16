@@ -33,5 +33,13 @@ class SearchView(APIView):
             items = Item.objects.filter(name__istartswith=query)
         else:
             items = Item.objects.all()
+
         serializer = ItemSerializer(items, many=True)
+        
+        if request.user.is_authenticated:
+            user_saved_items = set(SavedItem.objects.filter(user=request.user).values_list('item_id', flat=True))
+            for item in serializer.data:
+                item['is_saved'] = item['id'] in user_saved_items
+
+        
         return Response(serializer.data, status=status.HTTP_200_OK)

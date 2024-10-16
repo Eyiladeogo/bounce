@@ -8,6 +8,7 @@ import App from './App';
 import Saved from './components/Saved';
 import Cart from './components/Cart';
 import Shop from './components/Shop';
+import SignInModal from './components/SignInModal.js';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -24,10 +25,10 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
-  // {
-  //   path: "/sign-in",
-  //   element: <SignInModal />,
-  // },
+  {
+    path: "/sign-in",
+    element: <SignInModal />,
+  },
   {
     path: "/shop",
     element: <Shop />,

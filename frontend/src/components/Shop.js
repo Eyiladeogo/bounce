@@ -1,7 +1,7 @@
 import NavBar from './NavBar.js'
 import api from '../utils/api.js'
 import { useEffect, useState } from 'react'
-import { FaHeart, FaShoppingCart } from 'react-icons/fa'
+import { FaHeart, FaShoppingCart, FaSpinner } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
 export default function Shop(){
@@ -11,12 +11,14 @@ export default function Shop(){
     const [error, setError] = useState(null)
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+    const searchQuery = useSelector(state => state.search.query)
 
 
     useEffect(() =>{
         async function fetchShopData(){
             try{
-                const response = await api.get('shop/')
+                const endpoint = searchQuery ? `shop/search?q=${searchQuery}` : 'shop/'
+                const response = await api.get(endpoint)
                 setItems(response.data)
                 setLoading(false)
             }
@@ -27,7 +29,7 @@ export default function Shop(){
         }
 
         fetchShopData()
-    }, [])
+    }, [searchQuery])
 
     const handleSaveItem = async (item) =>{
         console.log(item)
@@ -59,11 +61,15 @@ export default function Shop(){
         <div className='item-grid'>
             {/* <h1>Shop</h1> */}
 
-            {loading && <p>Loading...</p>}
+            {loading && (
+          <div className="spinner-container">
+            <FaSpinner className="spinner" />
+          </div>
+        )}
             {error && <p>Error fetching data: {error}</p>}
                 {items.map(item => (
                     <div key={item.id} className='item-card'>
-                        <img src={item.image_url} alt={item.name}/>
+                        <img src={item.image_url} alt={item.name} title={item.name}/>
                         <h2>{item.name}</h2>
                         <h3>${item.price}</h3>
 

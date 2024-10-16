@@ -3,6 +3,7 @@ import dawg from '../assets/who-are-you-dawg.svg';
 import api from "../utils/api";
 import { login } from "../features/authSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 export default function SignInModal({ onClose }){
@@ -15,6 +16,10 @@ export default function SignInModal({ onClose }){
     const [errorMessage, setErrorMessage] = useState('')
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+
+    const from= location.state?.from?.pathname || '/'
     // const handleEmailSubmit = async (e) => {
     //     e.preventDefault()
     //     try {
@@ -73,6 +78,7 @@ export default function SignInModal({ onClose }){
                 const token = response.data['token']
                 localStorage.setItem('token', token);
                 dispatch(login(token))
+                navigate(from)
             } catch (error) {
                 console.error('Login failed', error)
                 setErrorMessage('Error logging in')
@@ -84,6 +90,7 @@ export default function SignInModal({ onClose }){
                 const response = await api.post('/user/register/', {"email":email, "password":password, "first_name":firstName, "last_name":lastName, "password2":confirmPassword})
                 const token = response.data['token']
                 localStorage.setItem('token', token);
+                dispatch(login(token))
             } catch (error) {
                 console.error('Registration failed', error)
                 setErrorMessage('Error during registration')

@@ -184,6 +184,25 @@ nav {
   background-color: #d4d7dd;
 }
 
+/* SPINNER STYLING */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Makes it centered vertically */
+}
+
+.spinner {
+  font-size: 48px;
+  animation: spin 1s linear infinite;
+  color:  #898e99/* Change this color to whatever you like */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /* MODAL STYLING */
 .modal {
   position: fixed;
@@ -320,7 +339,7 @@ button:hover {
 .item-grid {
   display: grid;
   /* grid-template-columns: repeat(3, 1fr); 3 items per row */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive 3-column grid */
+  grid-template-columns: repeat(auto-fill, minmax(369px, 1fr)); /* Responsive 3-column grid */
   gap: 20px; /* Space between items */
   padding: 20px;
 }
