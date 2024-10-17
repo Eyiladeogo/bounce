@@ -5,6 +5,8 @@ import { login } from "../features/authSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
+import hide from '../assets/hide-password.svg'
+import view from '../assets/view-password.svg'
 
 export default function SignInModal({ onClose }){
     const [email, setEmail] = useState('')
@@ -14,12 +16,13 @@ export default function SignInModal({ onClose }){
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+    const [viewPassword, setViewPassword] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
 
-    const from= location.state?.from?.pathname || '/'
+    const from = location.state?.from?.pathname || '/shop'
     // const handleEmailSubmit = async (e) => {
     //     e.preventDefault()
     //     try {
@@ -75,9 +78,9 @@ export default function SignInModal({ onClose }){
             console.log('Logging in with:', { email, password });
             try {
                 const response = await api.post('/user/login/', {"email":email, "password":password})
-                const token = response.data['token']
-                localStorage.setItem('token', token);
-                dispatch(login(token))
+                // const token = response.data['token']
+                // localStorage.setItem('token', token);
+                dispatch(login(response.data))
                 navigate(from)
             } catch (error) {
                 console.error('Login failed', error)
@@ -136,17 +139,19 @@ export default function SignInModal({ onClose }){
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <input
-                                type="password"
+                                type={viewPassword?'text':'password'}
                                 id="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
                                 placeholder="Enter your password"
+                                
                             />
+                            <img src={viewPassword?hide:view} style={{height:"20px", width:"20px"}} onClick={() => setViewPassword(!viewPassword)}/>
                             <p className="help-text">
                                 Please enter your password to log in.
                             </p>
-                            <button type="submit">Login</button>
+                            <button type="submit" className="submit-button">Login</button>
                         </div>
                     )}
                     
@@ -177,13 +182,14 @@ export default function SignInModal({ onClose }){
                         <div className="form-group">
                         <label htmlFor="password">Password</label>
                         <input
-                            type="password"
+                            type={viewPassword?'text':'password'}
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             placeholder="Create a password"
                         />
+                        <img src={viewPassword?hide:view} style={{height:"20px", width:"20px"}} onClick={() => setViewPassword(!viewPassword)}/>
                             <p className="help-text">
                                 Choose a strong password for your account.
                             </p>
@@ -191,18 +197,19 @@ export default function SignInModal({ onClose }){
                         <div className="form-group">
                         <label htmlFor="confirmPassword">Confirm Password</label>
                         <input
-                            type="password"
+                            type={viewPassword?'text':'password'}
                             id="confirmPassword"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                             placeholder="Confirm your password"
                         />
+                        <img src={viewPassword?hide:view} style={{height:"20px", width:"20px"}} onClick={() => setViewPassword(!viewPassword)}/>
                             <p className="help-text">
                                 Please re-enter your password to confirm.
                             </p>
                         </div>
-                        <button type="submit">Register</button>
+                        <button type="submit" className="submit-button">Register</button>
                     </>
                     )}
                     

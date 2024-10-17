@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import bounceLogo from '../assets/icon.svg'
 import SignIn from './SignIn';
+import UserProfile from './UserProfile';
 import { Link, useNavigate } from 'react-router-dom'; // Assuming you are using react-router for navigation
 import { FaShoppingCart, FaHeart, FaUser, FaSearch } from 'react-icons/fa'; // You can replace these with your icons
 import { useSelector, useDispatch } from 'react-redux';
@@ -88,7 +89,7 @@ const Navbar = () => {
         {
           isAuthenticated ? 
           (
-            <FaUser className="text-black cursor-pointer" title="User Profile" />
+            <UserProfile />
           ) : (
             <SignIn/>
           )
