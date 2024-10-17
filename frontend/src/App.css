@@ -275,9 +275,19 @@ nav {
 
 /* Left image section */
 .who-you {
-  width: 35%; /* 1/4 width of the modal */
-  height: 50%;
+  width: 100%; /* 1/4 width of the modal */
+  /* height: 50%; */
   object-fit: cover; /* Maintain aspect ratio */
+}
+
+.who-you-wrapper {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  width: 35%;
+  height: 100vh;
+  object-fit: cover;
 }
 
 /* Right form section */

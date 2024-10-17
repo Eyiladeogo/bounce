@@ -78,8 +78,6 @@ export default function SignInModal({ onClose }){
             console.log('Logging in with:', { email, password });
             try {
                 const response = await api.post('/user/login/', {"email":email, "password":password})
-                // const token = response.data['token']
-                // localStorage.setItem('token', token);
                 dispatch(login(response.data))
                 navigate(from)
             } catch (error) {
@@ -91,9 +89,7 @@ export default function SignInModal({ onClose }){
             console.log('Registering with:', { email, password, firstName, lastName });
             try {
                 const response = await api.post('/user/register/', {"email":email, "password":password, "first_name":firstName, "last_name":lastName, "password2":confirmPassword})
-                const token = response.data['token']
-                localStorage.setItem('token', token);
-                dispatch(login(token))
+                dispatch(login(response.data))
             } catch (error) {
                 console.error('Registration failed', error)
                 setErrorMessage('Error during registration')
@@ -110,7 +106,10 @@ export default function SignInModal({ onClose }){
             </div> */}
             <div className="modal-container">
                 <button className="close-button" onClick={onClose}>X</button>
-                <img src={dawg} alt="Who are you dawg?" className="who-you"></img>
+                <div className="who-you-wrapper">
+                    <img src={dawg} alt="Who are you dawg?" className="who-you"></img>
+                </div>
+                
                 <form onSubmit={handleSubmit}>
                     <h2>{userExists === null ? 'Sign In' : userExists ? 'Login' : 'Register'}</h2>
 
