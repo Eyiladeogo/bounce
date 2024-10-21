@@ -1,6 +1,7 @@
 import './App.css';
 import bounceLogo from './assets/icon.svg'
 import NavBar from './components/NavBar.js'
+import Footer from './components/Footer.js';
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <div className='logo-wrapper'>
         <header className="App-header">
         
-          <div>
+          <div className='animated-shii'>
             <div className='shoe-wrapper'>
               <img src={bounceLogo} className='shoe' alt='Bounce Logo'></img>
             </div>
@@ -19,11 +20,12 @@ function App() {
             <p className='slogan raleway' >
               Elevate your game
             </p>
+            
           </div>
           
         </header>
       </div>
-      
+      <Footer />
     </div>
   );
 }

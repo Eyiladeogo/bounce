@@ -4,30 +4,41 @@ import { useEffect, useState } from 'react'
 import { FaHeart, FaShoppingCart, FaSpinner } from 'react-icons/fa'
 import { useSelector } from 'react-redux'
 
+import AddToCartModal from './AddToCartModal.js'
+
 export default function Shop(){
 
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [selectedItem, setSelectedItem] = useState(null)
 
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const searchQuery = useSelector(state => state.search.query)
 
+    const openModal = (item) => {
+        setSelectedItem(item);
+        console.log(selectedItem)
+    };
+
+    const closeModal = () => {
+        setSelectedItem(null);
+    };
+
+    async function fetchShopData(){
+        try{
+            const endpoint = searchQuery ? `shop/search?q=${searchQuery}` : 'shop/'
+            const response = await api.get(endpoint)
+            setItems(response.data)
+            setLoading(false)
+        }
+        catch(error){
+            setError(error.message)
+            setLoading(false)
+        }
+    }
 
     useEffect(() =>{
-        async function fetchShopData(){
-            try{
-                const endpoint = searchQuery ? `shop/search?q=${searchQuery}` : 'shop/'
-                const response = await api.get(endpoint)
-                setItems(response.data)
-                setLoading(false)
-            }
-            catch(error){
-                setError(error.message)
-                setLoading(false)
-            }
-        }
-
         fetchShopData()
     }, [searchQuery])
 
@@ -57,15 +68,16 @@ export default function Shop(){
 
     return(
         <>
-            <NavBar />
+        <NavBar />
+        {loading && (
+            <div className="spinner-container">
+                <FaSpinner className="spinner" />
+            </div>
+        )}
         <div className='item-grid'>
             {/* <h1>Shop</h1> */}
 
-            {loading && (
-          <div className="spinner-container">
-            <FaSpinner className="spinner" />
-          </div>
-        )}
+            
             {error && <p>Error fetching data: {error}</p>}
                 {items.map(item => (
                     <div key={item.id} className='item-card'>
@@ -88,16 +100,24 @@ export default function Shop(){
                         
                         
                         {/* Add to Cart Button */}
-
-                        <button
-                            className="icon-button"
-                            // onClick={() => handleAddToCart(item)}
-                            title="Add to Cart"
-                        >
-                            <FaShoppingCart className="icon" />
-                        </button>
+                        {isAuthenticated && (
+                            <button
+                                className="icon-button"
+                                onClick={() => openModal(item)}
+                                title="Add to Cart"
+                            >
+                                <FaShoppingCart className='icon'
+                                    style={{color:item.in_cart? '#d41515' : 'black'}}
+                                />
+                            
+                            </button>
+                        )}
+                        
                     </div>
                 ))}
+                {selectedItem && (
+                    <AddToCartModal item={selectedItem} closeModal={closeModal} handleShopFetch={fetchShopData}/>
+                )}
         </div>
         </>
         

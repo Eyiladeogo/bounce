@@ -8,6 +8,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import hide from '../assets/hide-password.svg'
 import view from '../assets/view-password.svg'
 
+import { FaHome } from "react-icons/fa";
+
 export default function SignInModal({ onClose }){
     const [email, setEmail] = useState('')
     const [userExists, setUserExists] = useState(null)
@@ -17,6 +19,7 @@ export default function SignInModal({ onClose }){
     const [lastName, setLastName] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
     const [viewPassword, setViewPassword] = useState(false)
+    const [buttonClick, setButtonClick] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -53,7 +56,7 @@ export default function SignInModal({ onClose }){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setButtonClick(true)
         // Check if email is being submitted first
         if (userExists === null) {
             try {
@@ -66,9 +69,11 @@ export default function SignInModal({ onClose }){
                 } else {
                     setErrorMessage('An unexpected error occurred');
                 }
+                setButtonClick(false)
             } catch (error) {
                 console.error('Error checking email', error);
                 setErrorMessage('Server error occurred');
+                setButtonClick(false)
             }
             return; // Early return to prevent form submission after email check
         }
@@ -77,23 +82,28 @@ export default function SignInModal({ onClose }){
         if (userExists) {
             console.log('Logging in with:', { email, password });
             try {
+                setButtonClick(true)
                 const response = await api.post('/user/login/', {"email":email, "password":password})
                 dispatch(login(response.data))
                 navigate(from)
+                setButtonClick(false)
             } catch (error) {
                 console.error('Login failed', error)
                 setErrorMessage('Error logging in')
+                setButtonClick(false)
             }
             // Call login API here...
         } else {
             console.log('Registering with:', { email, password, firstName, lastName });
             try {
+                setButtonClick(true)
                 const response = await api.post('/user/register/', {"email":email, "password":password, "first_name":firstName, "last_name":lastName, "password2":confirmPassword})
                 dispatch(login(response.data))
+                setButtonClick(false)
             } catch (error) {
                 console.error('Registration failed', error)
                 setErrorMessage('Error during registration')
-                
+                setButtonClick(false)
             }
             // Call registration API here...
         }
@@ -108,6 +118,7 @@ export default function SignInModal({ onClose }){
                 <button className="close-button" onClick={onClose}>X</button>
                 <div className="who-you-wrapper">
                     <img src={dawg} alt="Who are you dawg?" className="who-you"></img>
+                    <a href="/" className="icons"><FaHome className="text-black cursor-pointer"/></a>
                 </div>
                 
                 <form onSubmit={handleSubmit}>
@@ -129,7 +140,7 @@ export default function SignInModal({ onClose }){
                             <p className="help-text">
                                 We'll check if you already have an account with this email
                             </p>
-                            <button type="submit" className="submit-button">Next</button>
+                            <button type="submit" className={buttonClick?'submit-button':'submit-button.clicked'}>Next</button>
                         </div>
                     )}
                     
@@ -150,7 +161,7 @@ export default function SignInModal({ onClose }){
                             <p className="help-text">
                                 Please enter your password to log in.
                             </p>
-                            <button type="submit" className="submit-button">Login</button>
+                            <button type="submit" className={buttonClick?'submit-button':'submit-button-clicked'}>Login</button>
                         </div>
                     )}
                     

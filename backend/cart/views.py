@@ -17,18 +17,20 @@ class CartView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
-        user = request.user
+        user, quantity = request.user, request.data.get('quantity')
         item_id = request.data.get('item_id')
+        print(item_id, quantity)
         item = get_object_or_404(Item, id=item_id)
 
         # Check if user has a cart, create one if not
         cart, created = Cart.objects.get_or_create(user=user)
 
         # Check if the item is already in the cart
-        cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item)
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, item=item, quantity=quantity)
         if not created:
-            cart_item.quantity += 1  # Increase quantity if item already exists in cart
+            cart_item.quantity = quantity  # Increase quantity if item already exists in cart
             cart_item.save()
+        print(cart_item, cart_item.quantity)
 
         return Response({'message': 'Item added to cart!'}, status=status.HTTP_200_OK)
     
@@ -36,6 +38,12 @@ class CartView(APIView):
         try:
             cart = Cart.objects.get(user=request.user)
             item_id = request.data.get('item_id')
+            if not item_id:
+                item_id = request.query_params.get('item_id')
+
+            if not item_id:
+                return Response({"error": "Item ID is required"}, status=status.HTTP_400_BAD_REQUEST)
+
             cart_item = CartItem.objects.get(cart=cart, item_id=item_id)
             cart_item.delete()
             return Response({"message": "Item removed from cart"}, status=status.HTTP_200_OK)

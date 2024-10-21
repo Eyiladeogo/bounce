@@ -9,6 +9,7 @@ import Saved from './components/Saved';
 import Cart from './components/Cart';
 import Shop from './components/Shop';
 import SignInModal from './components/SignInModal.js';
+import Checkout from './components/Checkout.js';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
   {
     path: "/shop",
     element: <Shop />,
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />,
   },
 ])
 

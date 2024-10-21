@@ -33,6 +33,8 @@ class SavedItemsView(APIView):
     def delete(self, request):
         item_id = request.data.get('item_id')
         if not item_id:
+            item_id = request.query_params.get('item_id')
+        if not item_id:
             return Response({"error": "Item ID is required"}, status=status.HTTP_400_BAD_REQUEST)
         item = get_object_or_404(Item, id=item_id)
         

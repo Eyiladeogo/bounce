@@ -12,6 +12,7 @@ export default function Saved() {
   const [savedItems, setSavedItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [removalErrorMessage, setRemovalErrorMessage] = useState('') 
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const navigate = useNavigate()
@@ -24,25 +25,29 @@ export default function Saved() {
     }
   }, [isAuthenticated, navigate, location]);
 
-  useEffect(() =>{
+  
+ 
+  async function fetchSavedItems(){
     if (isAuthenticated){
       const token = localStorage.getItem('token');
       if (token){
-        async function fetchSavedItems(){
-          try{
-              const response = await api.get('saved/')
-              console.log(response.data)
-              setSavedItems(response.data)
-              setLoading(false)
-          }
-          catch(error){
-              setError(error.message)
-              setLoading(false)
-          }
+        try{
+          const response = await api.get('saved/')
+          console.log(response.data)
+          setSavedItems(response.data)
+          setLoading(false)
         }
-        fetchSavedItems()
+        catch(error){
+            setError(error.message)
+            setLoading(false)
+        }
       }
     }
+  }
+
+
+  useEffect(() =>{
+    fetchSavedItems()
   }, [isAuthenticated])
   return (
     <>
@@ -58,9 +63,10 @@ export default function Saved() {
         {!loading && (
           <>
             <h2>Your Saved Items</h2>
+            {removalErrorMessage && <p className="error">{removalErrorMessage}</p>}
             <div className="saved-list">
                 {savedItems.length > 0 ? (
-                savedItems.map((savedItem) => <SavedItem key={savedItem.item.id} item={savedItem.item} />)
+                savedItems.map((savedItem) => <SavedItem key={savedItem.item.id} item={savedItem.item} handleSetError ={setRemovalErrorMessage} handleSavedFetch={fetchSavedItems}/>)
                 ) : (
                 <p>No items saved yet!</p>
                 )}

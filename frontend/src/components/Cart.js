@@ -41,13 +41,15 @@ export default function Cart(){
   const [cartItems, setCartItems] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [removalErrorMessage, setRemovalErrorMessage] = useState('') 
+  const [totalPrice, setTotalPrice] = useState(0)
 
+  useEffect(() => {
+    // Calculate total price when cartItems changes
+    const total = cartItems.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
+    setTotalPrice(parseFloat(total.toFixed(2)));
+  }, [cartItems]);
 
-  var totalPrice = 0
-  for (let i=0; i<cartItems.length; i++){
-    totalPrice += cartItems[i]['price']
-  }
-  
   useEffect(() => {
     if (!isAuthenticated) {
       // If user isn't logged in, redirect them to login
@@ -55,26 +57,40 @@ export default function Cart(){
     }
   }, [isAuthenticated, navigate, location]);
 
-  useEffect(() =>{
+
+  async function fetchCartItems(){
     if (isAuthenticated){
       const token = localStorage.getItem('token');
       if (token){
-        async function fetchCartItems(){
-          try{
-              const response = await api.get('cart/')
-              const cart = response.data['items']
-              setCartItems(cart)
-              setLoading(false)
-          }
-          catch(error){
-              setError(error.message)
-              setLoading(false)
-          }
+        try{
+          const response = await api.get('cart/')
+          const cart = response.data['items']
+          console.log(cart)
+          setCartItems(cart)
+          setLoading(false)
         }
-        fetchCartItems()
+        catch(error){
+            setError(error.message)
+            setLoading(false)
+        }
       }
     }
+  }
+
+  useEffect(() =>{
+    fetchCartItems()
   }, [isAuthenticated])
+
+  const handleCheckout = async() => {
+    try {
+      await api.delete('cart/clear/')
+      await api.get('cart/')
+      navigate("/checkout");
+    } catch (error) {
+      console.error('Error while decreasing item quantity', error)
+      setRemovalErrorMessage('Error while decreasing item quantity')
+    }
+  };
     return(
         <>
             <Navbar />
@@ -85,18 +101,33 @@ export default function Cart(){
             </div>
           )}
         {error && <p>Error fetching data: {error}</p>}
+        {!loading && (
+          <>
             <div className="cart-summary">
-                <h2>TOTAL</h2>
-                <h3>${totalPrice}</h3>
-            </div>
+                  <h2>TOTAL</h2>
+                  <h3>${totalPrice}</h3>
+                  {removalErrorMessage && <p className="error">{removalErrorMessage}</p>}
+              </div>
+              
+              <div className="saved-list">
+                  {cartItems.length > 0 ? (
+                  cartItems.map((item) => <CartItem key={item.item.id} item={item.item} quantity={item.quantity} handleSetError ={setRemovalErrorMessage} handleCartFetch={fetchCartItems}/>)
+                  ) : (
+                  <p>Cart is Empty!</p>
+                  )}
+              </div>
+          </>
+          
+        )}
             
-            <div className="saved-list">
-                {cartItems.length > 0 ? (
-                cartItems.map((item) => <CartItem key={item.id} item={item} />)
-                ) : (
-                <p>Cart is Empty!</p>
-                )}
-            </div>
+
+            {cartItems.length > 0 && (
+              <div className="checkout-button-container">
+                <button className="checkout-button" onClick={handleCheckout}>
+                  Checkout
+                </button>
+              </div>
+            )}
         </div>
         </>
         
