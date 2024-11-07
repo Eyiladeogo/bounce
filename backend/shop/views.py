@@ -7,8 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Item
-from saved_items.models  import SavedItem
-from cart.models import Cart, CartItem
+from backend.saved_items.models  import SavedItem
+from backend.cart.models import Cart, CartItem
 from.serializers import ItemSerializer
 
 class ShopViewSet(viewsets.ModelViewSet):
