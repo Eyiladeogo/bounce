@@ -91,6 +91,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+# chai
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
