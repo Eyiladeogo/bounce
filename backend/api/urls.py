@@ -2,8 +2,8 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 
-from user.views import UserViewSet
-from shop.views import ShopViewSet
+from backend.user.views import UserViewSet
+from backend.shop.views import ShopViewSet
 from .views import check_email
 
 router = DefaultRouter()
