@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-1x%y-2de7wltm9qgh2&zch^274!)=0s6i@y!d^rbc18*@q#ffj
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['https://bounce-2afb8399f304.herokuapp.com/']
+ALLOWED_HOSTS = ['https://bounce-9115b56f2109.herokuapp.com/ ']
 
 
 # Application definition
