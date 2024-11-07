@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'user',
-    'shop',
-    'saved_items',
-    'cart',
+    'backend.user',
+    'backend.shop',
+    'backend.saved_items',
+    'backend.cart',
     'corsheaders',
     'psycopg2',
     'cloudinary',
@@ -71,7 +71,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'backend.core.urls'
 
 TEMPLATES = [
     {
