@@ -54,6 +54,11 @@ INSTALLED_APPS = [
     'cloudinary_storage'
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "https://bouncehq.vercel.app/",
+    "http://localhost:3000/"
+]
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
