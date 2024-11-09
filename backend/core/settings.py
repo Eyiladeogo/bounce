@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-1x%y-2de7wltm9qgh2&zch^274!)=0s6i@y!d^rbc18*@q#ffj
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['bounce-9115b56f2109.herokuapp.com']
+ALLOWED_HOSTS = ['bounce-9115b56f2109.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -61,7 +61,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000"
 ]
 
-CORS_ALLOW_CREDENTIAL = True
+CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -175,10 +175,6 @@ APPEND_SLASH=False
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React app URL for local development
-    # Add other allowed origins here
-]
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dpfgyed4e',
