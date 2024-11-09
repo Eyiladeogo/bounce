@@ -54,12 +54,14 @@ INSTALLED_APPS = [
     'cloudinary_storage'
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     "https://bouncehq.vercel.app",
-    "http://localhost"
+    "http://localhost:3000"
 ]
+
+CORS_ALLOW_CREDENTIAL = True
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
