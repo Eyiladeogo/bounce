@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1x%y-2de7wltm9qgh2&zch^274!)=0s6i@y!d^rbc18*@q#ffj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
-ALLOWED_HOSTS = ['https://bounce-9115b56f2109.herokuapp.com/ ']
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -44,10 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'backend.user',
-    'backend.shop',
-    'backend.saved_items',
-    'backend.cart',
+    'user',
+    'shop',
+    'saved_items',
+    'cart',
     'corsheaders',
     'psycopg2',
     'cloudinary',
@@ -71,7 +71,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-ROOT_URLCONF = 'backend.core.urls'
+ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
     {
@@ -89,7 +89,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'backend.core.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.application'
 
 # chai
 
