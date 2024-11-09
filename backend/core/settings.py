@@ -56,7 +56,7 @@ INSTALLED_APPS = [
 
 CORS_ALLOWED_ORIGINS = [
     "https://bouncehq.vercel.app",
-    "http://localhost:3000"
+    "http://localhost"
 ]
 
 MIDDLEWARE = [
