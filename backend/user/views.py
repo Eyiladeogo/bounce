@@ -43,3 +43,10 @@ class LogoutView(APIView):
         request.user.auth_token.delete()
         return Response({'message': 'Logged out'}, status=status.HTTP_200_OK)
 
+class ValidateTokenView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # If the request is authenticated, return a success response
+        return Response({"message": "Token is valid."}, status=200)
+        
