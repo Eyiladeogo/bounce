@@ -1,4 +1,4 @@
-**BOUNCE**
+# **BOUNCE**
 
 Bounce is an e-commerce web application designed to provide users with a smooth and intuitive shopping experience. Whether you're searching for specific items or browsing through categories, Bounce ensures that every interaction is fast, responsive, and tailored to the user's needs. Built with a robust tech stack, it incorporates thoughtful features to enhance usability for buyers.
 
