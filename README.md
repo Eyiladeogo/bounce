@@ -4,7 +4,7 @@ Bounce is an e-commerce web application designed to provide users with a smooth 
 
 **QUICK START**
 
-This project is hosted at https://bouncehq.vercel.app/
+This project is hosted [here] (https://bouncehq.vercel.app/)
 
 If you want to run it locally though
 
