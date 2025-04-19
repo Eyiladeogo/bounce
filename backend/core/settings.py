@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-1x%y-2de7wltm9qgh2&zch^274!)=0s6i@y!d^rbc18*@q#ffj"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["bounce-vzin.onrender.com", "localhost"]
 
