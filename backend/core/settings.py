@@ -124,7 +124,8 @@ WSGI_APPLICATION = "backend.core.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=f"postgres://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@localhost/{os.getenv('DB_NAME')}"
+        default=os.environ.get("DATABASE_URL")
+        or f"postgres://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@localhost:5432/{os.getenv('DB_NAME')}"
     )
 }
 
