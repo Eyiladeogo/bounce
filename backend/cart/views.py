@@ -8,7 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import Cart, CartItem
 from .serializers import CartItemSerializer, CartSerializer
-from shop.models import Item
+from backend.shop.models import Item
 
 class CartView(APIView):
     def get(self, request):

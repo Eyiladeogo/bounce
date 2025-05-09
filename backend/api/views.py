@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from user.models import CustomUser
+from backend.user.models import CustomUser
 
 @api_view(['POST'])
 def check_email(request):

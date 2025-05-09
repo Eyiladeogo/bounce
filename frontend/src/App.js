@@ -2,8 +2,27 @@ import './App.css';
 import bounceLogo from './assets/icon.svg'
 import NavBar from './components/NavBar.js'
 import Footer from './components/Footer.js';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    async function validateToken() {
+      const token = localStorage.getItem('token')
+      if (token) {
+        try {
+          
+        } catch (error) {
+          console.error("Token invalid or expired: ", error)
+          localStorage.removeItem('token')
+        }
+      }
+    }
+
+    validateToken()
+  }, [])
+
+
   return (
     <div className="App">
     <NavBar />
